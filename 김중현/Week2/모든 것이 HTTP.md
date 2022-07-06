@@ -1,0 +1,15 @@
+# Section 3. HTTP 기본
+## 모든 것이 HTTP
+> HyperText Transfer Protocol
+- HTML, TEXT, IMAGE, 음성, 영상, 파일, JSON, XML(API) 등 거의 모든 형태의 데이터 전송 가능
+- 심지어 서버 간에 데이터를 주고 받을 때도 대부분 HTTP 사용
+<br>
+
+### HTTP 역사
+- HTTP/0.9 (1991년): GET 메소드만 지원, HTTP 헤더 X
+- HTTP/1.0 (1996년): 메소드, 헤더 추가
+- HTTP/1.1 (1997년): 가장 많이 사용, 가장 중요한 버전!
+  - 대부분의 기능이 다 들어있고, HTTP/2나 HTTP/3은 성능개선이 이루어진 버전
+  - RFC2068 (1997) → RFC2616 (1999) → RFC7230~7235 (2014)
+- HTTP/2 (2015년): 성능 개선
+- HTTP/3 진행중: TCP 대신 UDP 사용, 성능 개선
