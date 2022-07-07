@@ -125,3 +125,67 @@
 - TCP/IP 연결을 계속 새로 맺어야 한다. (3 way handshake에 걸리는 시간 추가)
 - 웹 브라우저로 사이트를 요청하면 HTML뿐만 아니라 자바스크리브, css, 추가 이미지 등 수많은 자원이 함께 다운로드된다. <br>
 → 현재는 HTTP 지속 연결(Persistent Connection)으로 문제 해결
+<br>
+<br>
+<br>
+
+## HTTP 메시지
+### HTTP 메시지 구조
+<img width="826" alt="스크린샷 2022-07-07 오후 4 56 02" src="https://user-images.githubusercontent.com/80838501/177722099-82238d83-1193-4d7e-83d4-59165d8c2839.png">
+
+<br>
+
+### 1. 시작 라인
+#### 요청 메시지
+> request line = method　SP(공백)　request-target　SP　HTTP-version　CRLF(엔터)
+
+**요청 메시지 구조**
+```
+- HTTP 메소드
+- 요청 대상(path)
+- HTTP Version
+```
+- HTTP 메소드
+  - 종류: GET, POST, PUT, DELETE ...
+  - 서버가 수행해야 할 동작을 지정해준다.
+    - GET: 리소스 조회
+    - POST: 요청 내역 처리
+- 요청 대상
+  - absolute-path[?query] (절대경로[?쿼리])
+  - 절대경로 = "/"로 시작하는 경로
+- HTTP Version
+<br>
+<br>
+
+#### 응답 메시지
+> status line = HTTP-version　SP　status-code　SP　reason-phrase　CRLF
+
+**응답 메시지 구조**
+```
+- HTTP 버전
+- HTTP 상태 코드: 요청 성공, 실패를 나타낸다.
+- 이유 문구
+```
+- HTTP 버전
+- HTTP 상태 코드: 요청 성공, 실패를 나타낸다.
+  - 200: 성공
+  - 400: 클라이언트 요청 오류
+  - 500: 서버 내부 오류
+- 이유 문구: 사람이 이해할 수 있는, 짧은 상태 코드 설명글
+<br>
+<br>
+
+### 2. HTTP 헤더
+> header-field = field-name":"　OWS　field-value　OWS (OWS: 띄어쓰기 허용)
+#### 용도
+- HTTP 전송에 필요한 모든 부가정보 포함
+  - Ex) 메시지 바디 내용, 메시지 바디 크기, 압축, 인증, 요청 클라이언트 정보, 서버 애플리케이션 정보, 캐시 관리 정보 ...
+- 표준 헤더가 굉장히 많다.
+- 필요 시 임의의 헤더도 추가 가능
+<br>
+<br>
+
+### 3. HTTP 메시지 바디
+#### 용도
+- 실제 전송할 데이터
+- HTML 문서, 이미지, 영상, JSON 등 byte로 표현할 수 있는 모든 데이터 전송 가능
