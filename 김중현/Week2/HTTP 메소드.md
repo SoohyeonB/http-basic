@@ -71,6 +71,15 @@ GET /search?q=hello&hl=ko HTTP/1.1 Host:www.google.com
 <br>
 
 ### POST
+```
+POST /members HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "hello",
+    "age": 20
+}
+```
 - 요청 데이터 처리
 - 메시지 바디를 통해 클라이언트가 서버로 요청 데이터 전달
 - 서버는 요청 데이터를 처리
@@ -94,3 +103,48 @@ GET /search?q=hello&hl=ko HTTP/1.1 Host:www.google.com
 3. 다른 메소드로 처리하기 애매한 경우
   - ex) JSON으로 조회 데이터를 넘겨야 하는데, GET 메소드를 사용하기 어려운 경우
   - 조회는 최대한 GET을 쓰고, 그 외에 데이터가 변경되거나 프로세스가 진행되는 경우에는 POST
+<br>
+<br>
+<br>
+<br>
+
+## HTTP 메소드 - PUT, PATCH, DELETE
+### PUT
+```
+PUT /members/100 HTTP/1.1
+Content-Type: application/json
+
+{ 
+    "username": "hello",
+    "age": 20
+}
+```
+- 리소스 **완전히** 대체
+  - 리소스가 있으면 대체, 없으면 생성
+- **클라이언트가 리소스를 식별**
+  - 클라이언트가 리소스 위치를 알고 URI 지정 (ex. /members/100)
+  - POST와의 가장 큰 차이점
+<br>
+<br>
+
+### PATCH
+```
+PATCH /members/100 HTTP/1.1
+Content-Type: application/json
+
+{
+    "age": 50
+}
+```
+- 리소스 부분 변경
+- 원래 있던 리소스의 age 부분만 50으로 변경
+- PUT을 쓰면 username은 없어지고 "age": 50으로 완전히 대체
+<br>
+<br>
+
+### DELETE
+```
+DELETE /members/100 HTTP/1.1
+Host: localhost:8080
+```
+- 리소스 제거
