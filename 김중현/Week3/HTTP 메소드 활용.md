@@ -49,7 +49,7 @@ Host:www.google.com
 
 ### 3) HTML Form 데이터 전송
 > POST 전송 - 저장, GET 전송 - 저장
-```
+```html
 <form action="/save" method="post">
     <input type="text" name="username" />
     <input type="text" name="age" />
@@ -81,7 +81,7 @@ Host:localhost:8080
 <br>
 
 > multipart/form-data
-```
+```html
 <form action="/save" method="post" enctype="multipart/form-data">
     <input type="text" name="username" />
     <input type="text" name="age" />
