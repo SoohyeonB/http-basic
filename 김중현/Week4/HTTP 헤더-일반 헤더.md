@@ -44,4 +44,53 @@ header-filed = field-name ":" OWS fiels-value OWS (OWS: 띄어쓰기 허용)
 - 표현(= 표현 헤더 + 표현 데이터): 요청이나 응답에서 전달할 실제 데이터
 - 표현 헤더: 표현 데이터를 해석할 수 있는 정보 제공
   - Ex) 데이터 유형(html, json), 데이터 길이, 압축 정보 등
- 
+<br>
+<br>
+<br>
+<br>
+
+## 표현
+```
+Content-Type: 표현 데이터의 형식
+Content-Encoding: 표현 데이터의 압축 방식
+Content-Language: 표현 데이터의 자연 언어
+Content-Length: 표현 데이터의 길이
+```
+- 표현 헤더는 전송, 응답 둘 다에 사용
+<br>
+
+### Content-Type
+> 표현 데이터의 형식 설명
+- 바디에 들어가는 데이터의 형식
+- 미디어 타입, 문자 인코딩
+- Ex) 
+  - text/html; charset-utf-8
+  - application/json
+  - image/png
+<br>
+
+### Content-Encoding
+> 표현 데이터 인코딩
+- 표현 데이터를 압축하기 위해 사용
+- 데이터를 전달하는 곳에서 압축 후 인코딩 헤더를 추가
+- 데이터를 읽는 쪽에서 인코딩 헤더의 정보를 이용해 압축 해제
+- Ex)
+  - gzip
+  - deflate
+  - identity: 압축 X
+<br>
+
+### Content-Language
+> 표현 데이터의 자연 언어
+- 표현 데이터의 자연 언어를 나타낸다.
+- Ex)
+  - ko
+  - en
+  - en-US
+<br>
+
+### Content-Length
+> 표현 데이터의 길이
+- 바이트 단위
+- Transfer-Encoding을 사용하면 Content-Length를 사용하면 안된다.
+  - Transfer-Encoding 안에 정보가 다 들어있기 때문
