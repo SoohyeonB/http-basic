@@ -151,3 +151,77 @@ Accept: text/*,text/plain,text/plain;format=flowed,*/*
 Accept: text/*;q=0.3, text/html;q=0.7, text/html;level=1, text/html;level=2;q=0.4, */*;q=0.5
 ```
 <img width="260" alt="스크린샷 2022-07-21 오후 5 46 26" src="https://user-images.githubusercontent.com/80838501/180171863-92fac62f-780e-4098-9292-2b1c13653b4c.png">
+<br>
+<br>
+<br>
+<br>
+
+## 전송 방식
+```
+단순 전송
+압축 전송
+분할 전송
+범위 전송
+```
+<br>
+
+### 단순 전송
+> Content-Length
+```
+HTTP/1.1 200 OK
+Content-Type: text/html;charset=UTF-8
+Content-Length: 3423
+
+<html>
+  <body>...</body>
+</html>
+```
+- content에 대한 길이를 Content-Legnth로 지정해서 전송 <br>
+→ content 길이를 알 수 있을 때 사용
+- 한 번에 요청하고 한 번에 받는 것
+<br>
+
+### 압축 전송
+> Content-Encoding
+```
+HTTP/1.1 200 OK
+Content-Type: text/html;charset=UTF-8
+Content-Encoding: gzip
+Content-Length: 521
+
+asdkjfk;awjhnrefkljabnlkedfjblaksdjfgblkjdsb
+```
+
+- 압축해서 전송
+- Content-Encoding 헤더를 추가해 어떤 것으로 압축했는지 알려줘야 한다.
+<br>
+
+### 분할 전송
+> Transfer-Encoding
+```
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Transfer-Encoding: chunked
+
+5
+Hello
+5
+Hello
+0
+\r\n
+```
+- 분할헤서 전송하면 오는대로 바로바로 사용 가능
+- Content-Length 헤더를 포함하면 안된다.
+<br>
+
+### 범위 전송
+> Range, Content-Range
+```
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Conteent-Range: bytes 1001-2000 / 2000
+
+qefoqwiefhoeiqhfoihoiqehfoihoqiehfoiqhfe
+```
+- 범위를 지정해 전송
+- 중간에 전송하다 끊긴 경우, 처음부터 다시 보내지 않고 범위를 지정해 못받은 부분부터 전송할 때 사용
