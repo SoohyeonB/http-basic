@@ -94,3 +94,60 @@ Content-Length: 표현 데이터의 길이
 - 바이트 단위
 - Transfer-Encoding을 사용하면 Content-Length를 사용하면 안된다.
   - Transfer-Encoding 안에 정보가 다 들어있기 때문
+<br>
+<br>
+<br>
+<br>
+
+## 콘텐츠 협상
+> 클라이언트가 선호하는 표현 요청
+```
+Accept: 클라이언트가 선호하는 미디어 타입 전달
+Accept-Charset: 클라이언트가 선호하는 문자 인코딩
+Accept-Encoding: 클라이언트가 선호하는 압축 인코딩
+Accept-Language: 클라이언트가 선호하는 자연 언어
+```
+- 협상 헤더는 요청 시에만 사용
+<br>
+<br>
+
+### 협상과 우선순위 1
+> Quality Values(Q)
+- Quality Values(q)값 사용
+- 0~1까지, 값이 클수록 높은 우선순위 의미
+- 생략 시 1을 의미
+<br>
+
+```
+GET /event
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+```
+#### 우선순위
+1. ko-KR;q=1(q 생략)
+2. ko;q=0.9
+3. en-US;q=0.8
+4. en:q=0.7
+<br>
+<br>
+
+### 협상과 우선순위 2
+> Quality Values(q)
+- 구체적인 것이 우선순위가 높다.
+```
+GET /event
+Accept: text/*,text/plain,text/plain;format=flowed,*/*
+```
+#### 우선순위
+1. text/plain;format=flowed
+2. text/plain
+3. text/*
+4. */*
+<br>
+
+### 협상과 우선순위 3
+> Quality Values(q)
+- 구체적인 것을 기준으로 미디어 타입을 맞춘다.
+```
+Accept: text/*;q=0.3, text/html;q=0.7, text/html;level=1, text/html;level=2;q=0.4, */*;q=0.5
+```
+<img width="260" alt="스크린샷 2022-07-21 오후 5 46 26" src="https://user-images.githubusercontent.com/80838501/180171863-92fac62f-780e-4098-9292-2b1c13653b4c.png">
