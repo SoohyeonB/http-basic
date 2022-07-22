@@ -231,7 +231,7 @@ qefoqwiefhoeiqhfoihoiqehfoihoqiehfoiqhfe
 <br>
 
 ## 일반 정보
-> 정보성 헤더
+> 일반 정보를  헤더
 ```
 From: 유저 에이전트의 이메일 정보
 Referer: 이전 웹 페이지 주소
@@ -286,3 +286,58 @@ Server: nginx
 Date: Tue, 15 Nov 1994 08:12:31 GMT
 ```
 - 응답에서 사용
+<br>
+<br>
+<br>
+<br>
+
+## 특별한 정보
+> 특별한 정보를 제공하는 헤더
+```
+Host: 요청한 호스트 정보(도메인)
+Location: 페이지 리다이렉션
+Allow: 허용 간으한 HTTP 메소드
+Retry-After: 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+```
+<br>
+
+### Host
+> 요청한 호스트 정보(도메인)
+```
+GET /search?q=hello&hl=ko HTTP/1.1
+Host: wwww.google.com
+```
+- 요청에서 사용하는 필수값
+- 하나의 서버가 여러 도메인을 처리해야 할 때 
+- 하나의 IP 주소에 여러 도메인이 적용되어 있을 때
+<br>
+<br>
+
+<img width="600" alt="스크린샷 2022-07-22 오후 9 37 13" src="https://user-images.githubusercontent.com/80838501/180440771-240e64fb-c1af-4062-b61b-3ad32d6abe5c.png">
+
+- 서버가 가상호스트를 통해 여러 도메인을 한 번에 처리할 수 있는 서버인 경우, 실제 애플리케이션이 여러 개 구동될 수 있다.
+- 이 때, `Host: aaa.com`과 같이 Host 헤더 필드값을 지정해주면 서버가 가상호스팅을 한다.
+<br>
+
+### Location
+> 페이지 리다이렉션
+- 웹 브라우저는 3xx 응답의 결과에 Location 헤더가 있으면, Location 위치로 자동 이동(리다이렉트)
+- 201(Created): Location 값은 요청에 의해 생성된 리소스 URI
+- 3xx (Redirection): Location 값은 요청을 자동으로 리다이렉션하기 위한 대상 리소스를 가리킨다.
+<br>
+
+### Allow
+> 허용 가능한 HTTP 메소드
+```
+Allow: GET, HEAD, PUT
+```
+- 405(Method Not Allowed)에서 응답에 포함해야 하는 헤더
+<br>
+
+### Retry-After
+> 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+```
+Retry-After: Fri, 31 Dec 1999 23:59:59 GMT (날짜 표기)
+Retry-After: 120 (초단위 표기)
+```
+- 503(Service Unavailable): 서비스가 언제까지 불능인지 알려줄 수 있다.
