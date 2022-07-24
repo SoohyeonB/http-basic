@@ -364,3 +364,74 @@ WWW-Authenticate: 리소스 접근 시 필요한 인증 방법 정의
 WWW-Authenticate: Newauth realm="apps", type=1, title="Login to /"apps/"", Basic realm="simple"
 ```
 - 401 Unauthorized 응답과 함께 사용하는 헤더
+<br>
+<br>
+<br>
+<br>
+
+## 쿠키
+- 쿠키를 사용할 때는 아래의 두 헤더를 사용
+  - **Set-Cookie**: 서버에서 클라이언트로 쿠키 전달(응답)
+  - **Cookie**: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청 시 서버로 전달
+<br>
+
+### Stateless
+- HTTP는 기본적으로 Stateless 프로토콜이기 때문에, 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어진다.
+- 또한, 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못하고, 클라이언트와 서버는 서로 상태를 유지하지 않는다.
+> 따라서, 쿠키를 사용하지 않으면 서버는 이전 요청을 기억하지 못하기 때문에 로그인을 한 후 welcome 페이지에 접근했는데도 서버는 이 클라이언트가<br>
+> 회원인지 아닌지 알 수 없는 상황이 발생하게 된다.
+<br>
+<br>
+
+### 로그인 - 쿠키 사용
+> 로그인
+<img width="600" alt="스크린샷 2022-07-24 오후 5 28 52" src="https://user-images.githubusercontent.com/80838501/180638957-ee31480f-efd5-4d51-bb7e-a8499ced1519.png">
+
+- `Set-Cookie 헤더`로 user 정보 쿠키 저장소에 저장
+<br>
+
+> 로그인 이후 welcome 페이지 접근
+<img width="600" alt="스크린샷 2022-07-24 오후 5 29 22" src="https://user-images.githubusercontent.com/80838501/180639237-e4e62ce4-9d3a-4422-a933-8bf0259594b9.png">
+
+- 웹 브라우저는 요청을 보낼 때마다 쿠키 저장소를 뒤져 `Cookie 헤더`로 서버에 보낸다.
+- 모든 요청에 쿠키 정보가 자동으로 포함된다.
+<br>
+<br>
+
+### 쿠키
+```
+Set-Cookie: sessionId=abcde1234; expires=Sat, 26-Dec-2020 00:00:00 GMT; path=/;domain=.google.com;Secure
+```
+- 사용자 로그인 세션 관리, 광고 정보 트래킹 등에 사용
+- 쿠키 정보는 항상 서버에 전송된다.
+  - 네트워크 트래픽 추가 유발하기 때문에, 최소한의 정보만(세션 id, 인증 토큰) 사용해야 한다.
+  - 만약 서버에 전송하지 않고 웹 브라우저 내부에 데이터를 저장하고 싶으면 웹 스토리지(localStorage, sessionStorage) 사용
+<br>
+<br>
+
+### 쿠키 - 생명주기
+> Expires, max-age
+```
+Set-Cookie: expires=Sat, 26-Dec-2020 00:00:00 GMT
+```
+→ 만료일이 되면 쿠키 자동으로 삭제
+<br>  
+
+```
+Set-Cookie: max-age=3600
+```
+- 초단위 유효기간 지정. 초과 시 쿠키 자동 삭제
+- 0이나 음수 지정하면 쿠키 삭제
+- 두 가지 종류의 쿠키 존재
+  1) 세션 쿠키: 만료 날짜를 생략하면 브라우저가 종료될 때까지만 유지
+  2) 영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지
+<br>
+<br>
+
+### 쿠키 - 도메인
+- 도메인을 명시한 경우) 명시한 문서 기준 도메인 + 서브 도메인(하위 도메인) 포함
+  - Ex) domain=example.org를 지정해서 쿠키를 생성한 경우 <br>
+  → example.org는 물론, dev.example.org(하위 도메인)도 쿠키 접근
+- 도메인을 생략한 경우) 현재 문서 기준 도메인만 적용
+  - Ex) example.org에서 쿠키를 생성하고 domain 지정 생략한 경우 <br>
+  → example.org에서만 쿠키 접근, dev.example.org(하위 도메인)은 쿠키 미접근
