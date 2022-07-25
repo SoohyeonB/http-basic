@@ -4,3 +4,5 @@
 04. [HTTP 메서드](https://successful-gauge-e26.notion.site/HTTP-04-HTTP-e24306edf9e240e9ad116b6d83c49a7c)
 05. [HTTP 메서드 활용](https://successful-gauge-e26.notion.site/HTTP-05-HTTP-cb9daa527d8445678f0bc56de32f1529)
 06. [HTTP 상태코드](https://successful-gauge-e26.notion.site/HTTP-06-8b438eb44f9c43d3afad04398de81011)
+07. [HTTP 헤더1 - 일반 헤더](https://successful-gauge-e26.notion.site/HTTP-07-HTTP-1-69ec3321d65143fc9773a94a3636b67a)
+08. [HTTP 헤더2 - 캐시와 조건부 요청](https://successful-gauge-e26.notion.site/HTTP-08-HTTP-2-5832602872b24f39b5547111ff862d2d)
