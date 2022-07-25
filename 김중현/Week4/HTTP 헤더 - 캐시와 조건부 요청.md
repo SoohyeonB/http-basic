@@ -133,3 +133,27 @@ expires: Mon, 01 Jan 1990 00:00:00 GMT
 #### 조건부 요청 헤더
 - If-Match, If-None-Match
 - If-Modified-Since, If-Unmodified-Since
+<br>
+<br>
+<br>
+<br>
+
+## 프록시 캐시
+> Proxy: 클라이언트와 서버 사이에 대리로 통신을 수행
+<img width="600" alt="스크린샷 2022-07-25 오후 5 07 39" src="https://user-images.githubusercontent.com/80838501/180729427-936d291d-0d4e-4f64-85e2-b9e6e9bdc07e.png">
+
+- 미국에 있는 원 서버에서 데이터를 가져오고 싶은 경우, 한국에 프록시 캐시 서버(중계 서버)를 두면 더 빠르게 데이터를 가져올 수 있다.
+- 처음 요청할 때는 느리지만, 한 번 다운로드 받아놓으면 그 뒤의 요청부터는 빠르게 데이터를 가져올 수 있다.
+- 프록시 캐시 서버는 public 캐시
+<br>
+<br>
+
+### 캐시 지시어
+- Cache-Control: public
+  - 응답이 public 캐시에 저장되어도 된다.
+- Cache-Control: private
+  - 응답이 해당 사용자만을 위한 것이므로 private 캐시에 저장해야 한다.(기본값)
+- Cache-Control: s-maxage
+  - 프록시 캐시에만 적용되는 max-age
+- Age: 60 (HTTP 헤더)
+  - 오리진 서버에서 응답을 내려준 후 프록시 캐시 내에 머문 시간(초단위)
