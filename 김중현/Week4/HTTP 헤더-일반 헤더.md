@@ -435,3 +435,27 @@ Set-Cookie: max-age=3600
 - 도메인을 생략한 경우) 현재 문서 기준 도메인만 적용
   - Ex) example.org에서 쿠키를 생성하고 domain 지정 생략한 경우 <br>
   → example.org에서만 쿠키 접근, dev.example.org(하위 도메인)은 쿠키 미접근
+<br>
+<br>
+
+### 쿠키 - 경로
+```
+path=/home
+```
+- 도메인으로 한 번 필터링하고, 경로로 추가 필터링(도메인 안의 경로로)
+- 경로를 넣으면, 이 경로를 포함한 하위 경로 페이지만 쿠키 접근 가능
+- 일반적으로 `path=/` 루트로 지정
+  - 보통 한 도메인 안에서 다 쿠키를 전송하기 원하기 때문
+<br>
+<br>
+
+### 쿠키 - 보안
+> Secure, HttpOnly, SameSite
+- Secure
+  - 쿠키는 http, https를 구분하지 않고 전송하는데 `Secure` 적용 시 https인 경우에만 전송
+- HttpOnly
+  - XSS 공격 방지
+  - 자바스크립트에서 접근 불가하고 HTTP 전송에만 사용
+- SameSite
+  - XSRF 공격 방지
+  - 요청 도메인과 쿠키에 설정된 도메인이 같은 경우만 쿠키 전송 가능
