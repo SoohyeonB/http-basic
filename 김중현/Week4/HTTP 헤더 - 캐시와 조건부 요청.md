@@ -110,7 +110,7 @@ Expires: 캐시 유효 기간(하위 호환)
 #### Pragma
 > 캐시 제어(하위 호환)
 - Pragma: no-cache
-- HTTP 1.0의 하위 호환
+- HTTP 1.0 하위 호환
 <br>
 
 #### Expires
@@ -140,7 +140,7 @@ expires: Mon, 01 Jan 1990 00:00:00 GMT
 
 ## 프록시 캐시
 > Proxy: 클라이언트와 서버 사이에 대리로 통신을 수행
-<img width="600" alt="스크린샷 2022-07-25 오후 5 07 39" src="https://user-images.githubusercontent.com/80838501/180729427-936d291d-0d4e-4f64-85e2-b9e6e9bdc07e.png">
+<img width="700" alt="스크린샷 2022-07-25 오후 5 07 39" src="https://user-images.githubusercontent.com/80838501/180729427-936d291d-0d4e-4f64-85e2-b9e6e9bdc07e.png">
 
 - 미국에 있는 원 서버에서 데이터를 가져오고 싶은 경우, 한국에 프록시 캐시 서버(중계 서버)를 두면 더 빠르게 데이터를 가져올 수 있다.
 - 처음 요청할 때는 느리지만, 한 번 다운로드 받아놓으면 그 뒤의 요청부터는 빠르게 데이터를 가져올 수 있다.
@@ -157,3 +157,41 @@ expires: Mon, 01 Jan 1990 00:00:00 GMT
   - 프록시 캐시에만 적용되는 max-age
 - Age: 60 (HTTP 헤더)
   - 오리진 서버에서 응답을 내려준 후 프록시 캐시 내에 머문 시간(초단위)
+<br>
+<br>
+<br>
+<br>
+
+## 캐시 무효화
+> 확실한 캐시 무효화 응답: 캐시를 적용하지 않아도 웹 브라우저들이 임의로 캐시하기도 하기 때문에, 반드시 캐시되면 안되는 페이지에는 캐시 무효화
+```
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+```
+<br>
+
+### 캐시 지시어
+- Cache-Control: no-cache
+  - 데이터는 캐시해도 되지만 항상 원 서버에 검증하고 사용
+- Cache-Control: no-store
+  - 데이터에 민감한 정보가 있으므로 저장하면 안된다.
+- Cache-Control: must-revalidate
+  - 캐시 만료 후 최초 조회 시 원 서버에 검증해야 한다.
+  - 원 서버 접근 실패 시 반드시 오류가 발생해야 한다. (504 Gateway Timeout)
+  - must-revalidate는 캐시 유효 시간이라면 캐시를 사용한다.
+- Pragma: no-cache
+<br>
+
+#### no-cache vs must-revalidate
+> 왜 no-cache만으로는 안되고 must-revalidate를 추가해줘야 할까?
+#### no-cache
+<img width="700" alt="스크린샷 2022-07-25 오후 5 48 11" src="https://user-images.githubusercontent.com/80838501/180737013-5538a341-b925-4dff-b897-ba872ea8e898.png">
+
+- `no-cache`는 네트워크 단절로 인해 원서버 접근이 불가능한 경우, 캐시 서버 설정에 따라 오래된 데이터를 반환하는 경우가 있다. <br> 
+   그러면 프록시 캐시에 있는 과거 데이터가 보일 수도 있기 때문에, `must-revalidate` 추가
+<br>
+
+#### must-revalidate
+<img width="700" alt="스크린샷 2022-07-25 오후 5 48 36" src="https://user-images.githubusercontent.com/80838501/180737029-d3570f43-1911-4a80-970d-d4a8985895a3.png">
+
+- 네트워크 단절 등으로 인해 원 서버에 접근할 수 없는 경우, 항상 **504 Gateway Timeout**을 띄운다.
